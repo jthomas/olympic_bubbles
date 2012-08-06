@@ -11,6 +11,25 @@ body {
     margin-top: 0;
 }
 
+#messages {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+#messages .alert {
+    margin-bottom: 1px;
+    display: none;
+}
+
+#messages.connecting .alert-info,
+#messages.message_received .alert-info,
+#messages.connected .alert-success,
+#messages.error .alert-error
+{
+    display: block;
+}
+
 svg {
     display: block;
     margin: 0 auto;

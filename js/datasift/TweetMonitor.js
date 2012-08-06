@@ -1,4 +1,4 @@
-define(["compose/compose", "dojo/topic", "./Topics"],
+define(["compose/compose", "dojo/topic", "dojo/Deferred", "./Topics"],
     /**
      * Broadcast real-time mentions of Olympic sport categories, 
      * simple bridge between WebSocket channel delivering tagged
@@ -10,7 +10,7 @@ define(["compose/compose", "dojo/topic", "./Topics"],
      * @author James Thomas
      * @class
      */
-    function (compose, topic, Topics) {
+    function (compose, topic, Deferred, Topics) {
 
         /**
          * Initialise with DataSift WebSocket endpoint to receive
@@ -34,10 +34,18 @@ define(["compose/compose", "dojo/topic", "./Topics"],
             /**
              * Start listening for messages from backend
              * endpoint.
+             *
+             * @return {Promise} Deferred connection response
              */
             start: function () {
+                var deferred = new Deferred();
+
                 this.socket = new WebSocket(this.endpoint);
                 this.socket.onmessage = this.onmessage;
+                this.socket.onopen = deferred.resolve;
+                this.socket.onerror = deferred.reject;
+
+                return deferred.promise;
             },
 
             /**

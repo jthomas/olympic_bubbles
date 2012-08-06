@@ -31,15 +31,48 @@
         <p>These bubbles shown the relative frequency of tweets about the London 2012 Olympic sports in real-time. 
         Experiment using the DataSift API and D3 JavaScript visualisation library.</p>
       </div>
+      <div class="modal hide" id="api_details">
+          <div class="modal-header">
+              <h3>DataSift Login</h3>
+          </div>
+          <div class="modal-body">
+              <p>Sign up for a <a href="https://datasift.com/auth/register">free trial</a> at DataSift and enter your authentication details below.</p>
+              <form class="well">
+
+                  <label>Username</label>
+                  <input type="text" placeholder="" required>
+                  <label>API Key</label>
+                  <input type="text" placeholder="" required>
+              </form>
+
+          </div>
+          <div class="modal-footer">
+              <button class="btn btn-primary" disabled>Connect!</button>
+          </div>
+      </div>
 
       <div id="chart">
       </div>
+
       <hr>
 
       <footer>
         <p>Built by <a href="http://jamesthom.as">James Thomas</a></p>
       </footer>
 
+      <div id="messages" class="connecting">
+          <div class="alert alert-info">
+              Connecting to DataSift API... 
+          </div>
+
+          <div class="alert alert-success">
+              Connected! 
+          </div>
+
+          <div class="alert alert-error">
+              Unable to connect 
+          </div>
+      </div>
     </div> <!-- /container -->
 
     <script src="js/require/require.js"></script>
@@ -50,25 +83,20 @@
                 "compose": "js/compose",
                 "datasift": "js/datasift",
                 "domReady": "js/require/domReady",
-                "dojo": "js/dojo"
+                "dojo": "js/dojo",
+                "jQuery": "js/jquery/jquery-1.7.2.min",
+                "bootstrap": "js/bootstrap/bootstrap.min"
             },
             shim: {
                 "d3": {
                     exports: "d3"
+                },
+                "bootstrap": {
+                    deps: ["jQuery"]
                 }
             }
         });
-
-        require(["datasift/OlympicBubbles", "datasift/TweetMonitor", "domReady!"], function (OlympicBubbles, TweetMonitor) {
-            var stream_hash = "76601411d0ab45a89439b762f4bed120",
-            username = "thomasj",
-            api_key = "8a20494e301e6f654684e1c5a9f916e6";
-
-            var tm = new TweetMonitor("ws://websocket.datasift.com/" + stream_hash + "?username=" + username + "&api_key=" + api_key);
-                bubbles = new OlympicBubbles(document.getElementById("chart"));
-        });
     </script>
-    <script src="js/jquery/jquery-1.7.2.min.js"></script>
-    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/page.js"></script>
   </body>
 </html>
