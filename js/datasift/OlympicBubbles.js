@@ -48,11 +48,18 @@ define(["d3", "compose/compose", "dojo/topic", "./Topics", "./Sports"],
             node: null,
 
             /**
-             * Size of rendered chart, width & height.
+             * Width of rendered chart
              *
              * @type {Number}
              */
-            length: 800,
+            width: 800,
+
+            /**
+             * Height of rendered chart
+             *
+             * @type {Number}
+             */
+            height: 800,
 
             /**
              * Duration of bubble transitions, ms.
@@ -80,11 +87,11 @@ define(["d3", "compose/compose", "dojo/topic", "./Topics", "./Sports"],
                     capitalise = this._capitialise.bind(this),
                     offset = this._offset.bind(this);
 
-                this.layout = d3.layout.pack().sort(null).size([this.length, this.length]);
+                this.layout = d3.layout.pack().sort(null).size([this.width, this.height]);
 
                 this.vis = d3.select(this.node).append("svg")
-                    .attr("width", this.length)
-                    .attr("height", this.length);
+                    .attr("width", this.width)
+                    .attr("height", this.height);
 
                 // Generate SVG container node to hold text and circle elements
                 this.chart = this.vis.selectAll("g.node")

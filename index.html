@@ -1,48 +1,74 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Olympics 2012 :: DataSift</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css"></link>
-        <script src="js/require/require.js"></script>
-        <script src="js/d3/d3.v2.js"></script>
-        <script>
-            requirejs.config({
-                paths: {
-                    "d3": "js/d3/d3.v2",
-                    "compose": "js/compose",
-                    "datasift": "js/datasift",
-                    "domReady": "js/require/domReady",
-                    "dojo": "js/dojo"
-                },
-                shim: {
-                    "d3": {
-                        exports: "d3"
-                    }
-                }
-            });
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Olympic Bubbles</title>
 
-            require(["datasift/OlympicBubbles", "datasift/TweetMonitor", "domReady!"], function (OlympicBubbles, TweetMonitor) {
-                var stream_hash = "76601411d0ab45a89439b762f4bed120",
-                    username = "thomasj",
-                    api_key = "8a20494e301e6f654684e1c5a9f916e6";
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
 
-                var tm = new TweetMonitor("ws://websocket.datasift.com/" + stream_hash + "?username=" + username + "&api_key=" + api_key);
-                var open = false;
-                document.getElementById("toggle").addEventListener("click", function () {
-                    tm[open ? "stop" : "start"]();
-                    open = !open;
-                });
-
-                var bubbles = new OlympicBubbles(document.getElementById("chart"));
-            });
-  }
-    </script>
-    </head>
-    <body>
-        <button id="toggle">Toggle Stream...</button>
-    <div id="chart">
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Olympic Bubbles</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="">Home</a></li>
+              <li><a href="http://github.com/thomasj/olympic_bubbles">Source</a></li>
+              <li><a href="http://jamesthom.as">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
     </div>
-        
-    </body>
+
+    <div class="container">
+
+      <div class="hero-unit">
+        <h2>What sports are people talking about?</h2>
+        <p>These bubbles shown the relative frequency of tweets about the London 2012 Olympic sports in real-time. 
+        Experiment using the DataSift API and D3 JavaScript visualisation library.</p>
+      </div>
+
+      <div id="chart">
+      </div>
+      <hr>
+
+      <footer>
+        <p>Built by <a href="http://jamesthom.as">James Thomas</a></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <script src="js/require/require.js"></script>
+    <script>
+        requirejs.config({
+            paths: {
+                "d3": "js/d3/d3.v2",
+                "compose": "js/compose",
+                "datasift": "js/datasift",
+                "domReady": "js/require/domReady",
+                "dojo": "js/dojo"
+            },
+            shim: {
+                "d3": {
+                    exports: "d3"
+                }
+            }
+        });
+
+        require(["datasift/OlympicBubbles", "datasift/TweetMonitor", "domReady!"], function (OlympicBubbles, TweetMonitor) {
+            var stream_hash = "76601411d0ab45a89439b762f4bed120",
+            username = "thomasj",
+            api_key = "8a20494e301e6f654684e1c5a9f916e6";
+
+            var tm = new TweetMonitor("ws://websocket.datasift.com/" + stream_hash + "?username=" + username + "&api_key=" + api_key);
+                bubbles = new OlympicBubbles(document.getElementById("chart"));
+        });
+    </script>
+    <script src="js/jquery/jquery-1.7.2.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+  </body>
 </html>
