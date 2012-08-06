@@ -1,0 +1,6 @@
+[submodule "js/dojo"]
+	path = js/dojo
+	url = git@github.com:dojo/dojo.git
+[submodule "js/compose"]
+	path = js/compose
+	url = https://github.com/kriszyp/compose.git
