@@ -14,7 +14,10 @@ circles are transitioned to their new position, with updated size.
 How to run
 --
 
-Just open the "index.html" page in a modern browser.
+* $ git clone git://github.com/jthomas/olympic_bubbles.git
+* $ git submodule init
+* $ git submodule update 
+* Open "index.html" in a modern browser.
 
 Browser Support
 --
